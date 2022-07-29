@@ -1,0 +1,12 @@
+h1 {
+    text-align: center;
+    margin: 20px 0px;
+}
+
+.wanted-classes, .required-classes {
+    margin: 20px 0px;
+}
+
+.dropdown-toggle {
+    margin: 20px 0px;
+}
