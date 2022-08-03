@@ -37,17 +37,26 @@ public class studentsController {
     }
 
 
-    @GetMapping({"/", "/home"})
-    public String homeGet(Model model){
+    @GetMapping({"/","/home"})
+    public String homeGet(){
+        System.out.println("*************** Request Sent *************");
+
+        return "home";
+    }
+
+
+
+    @GetMapping({"/survey"})
+    public String surveyGet(Model model){
         System.out.println("*************** Request Sent *************");
         model.addAttribute("my_var", "Hello Sir");
 
         model.addAttribute("subjects", subjects);
-        return "home";
+        return "survey";
     }
 
-    @PostMapping({"/","/home"})
-    public String homePost(@ModelAttribute Students students, Model model){
+    @PostMapping({"/survey"})
+    public String surveyPost(@ModelAttribute Students students, Model model){
         System.out.println("*************** Post Received *************");
         System.out.println(students);
         int[][] schedule = this.scheduleService.getSchedule();

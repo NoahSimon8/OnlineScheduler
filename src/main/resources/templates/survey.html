@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" th:href="@{/css/home.css}">
+  <title>OnlineCouncilor</title>
+</head>
+
+<body>
+
+  <h1>
+    Welcome to the Online Scheduler
+  </h1>
+
+  <!-- <h2 th:text="${my_var}"></h2> -->
+
+  <form action="/" method="POST" class="container">
+    <!-- 1) Enter your first name -->
+
+    <div>
+      <label for="first_name">First Name</label>
+      <input type="text" name="first_name" id="form__input--first-name">
+      <br>
+      <br>
+    </div>
+    <!-- 1) Enter your last name -->
+
+    <div>
+      <label for="last_name">Last Name</label>
+      <input type="text" name="last_name" id="form__input--last-name">
+      <br>
+      <br>
+    </div>
+
+    <!-- 2) Enter your grade -->
+    <div>
+      <label for="grade">Grade</label>
+      <input type="text" name="grade" id="form__input--grade">
+      <br>
+      <br>
+      <hr>
+    </div>
+
+
+    <!-- 2) Enter your term length-->
+    <div>
+      <label for="term_length">Term Length</label>
+      <span id="form__span--term-length"></span>
+      <input type="range" name="term_length" min="2" max="4" value="2" id="form__input--term-length"
+        onchange="rangeSlider(this.value, 'form__span--term-length')"
+        onmousemove="rangeSlider(this.value, 'form__span--term-length')">
+      <br>
+      <br>
+    </div>
+
+    <!-- 2) Enter the # of periods in a day-->
+
+    <div>
+      <label for="num_periods"># of Periods in a Day</label>
+      <span id="form__span--num-periods"></span>
+      <input type="range" name="num_periods" min="1" max="10" value="4" id="form__input--num-periods"
+        onchange="rangeSlider(this.value, 'form__span--num-periods')"
+        onmousemove="rangeSlider(this.value, 'form__span--num-periods')">
+      <br>
+      <br>
+    </div>
+
+
+    <!-- Required Classes -->
+    <div class="required-classes">
+
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#required-classes__modal">
+        Choose required classes
+      </button>
+
+      <!-- Modal for required classes -->
+      <div class="modal fade" id="required-classes__modal" tabindex="-1" aria-labelledby="required-classes__header--title"
+        aria-hidden="true">
+        
+        <div class="modal-dialog">
+
+          <div class="modal-content">
+
+            <div class="modal-header">
+
+              <h5 class="modal-title" id="required-classes__header--title">Required Classes</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body" id="required-classes__modal-body">  
+              <!-- dropdown 1 -->
+              <div>
+                <select id="required-classes__select--subjects" name="requiredDropdownSubjects">
+
+                </select>
+      
+      
+  
+                <label for="requiredClassesLength">Length</label>
+                <input type="text" name="requiredClassesLength" id="required-classes__input--length">
+              </div>
+
+            </div>
+
+            
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-success" onclick="addRequiredClass()">Add Another Class</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <!-- model for wanted classes -->
+
+    <div class="wanted-classes">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#wanted-classes__modal">
+        Choose wanted classes
+      </button>
+
+      <div class="modal fade" id="wanted-classes__modal" tabindex="-1" aria-labelledby="wanted-classes__header--title" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="wanted-classes__header--title">Wanted classes</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="wanted-classes__modal-body">
+
+              <label>Note: numbered classes refers to year. Ex: Spanish 2 means 2nd year Spanish. This may be different than what your course request for labels it as</label>
+
+              <!-- dropdown subject -->
+              <div>
+
+                
+                <div class="dropdown">
+                  <select id="wanted-classes__select--subjects" name="wantedDropdownSubjects">
+                    
+                  </select>
+        
+
+                </div>
+                <!-- dropdown class -->
+                <div class="dropdown">
+                  <select id="wanted-classes__select--classes" name="wantedDropdownClasses">
+                    
+                  </select>
+
+  
+                  </ul> 
+                </div>
+  
+                <label for="wantedClassesLength">Length</label>
+                <input type="text" name="wantedClassesLength" id="wanted-classes__input--length">
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-success" onclick="addWantedClass()">Add Another Class</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Free Periods -->
+    <div class="free-periods">
+
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#free-periods__modal">
+        Free Period Settings
+      </button>
+
+      <!-- Modal for free periods -->
+      <div class="modal fade" id="free-periods__modal" tabindex="-1" aria-labelledby="free-periods__header--title"
+        aria-hidden="true">
+        
+        <div class="modal-dialog">
+
+          <div class="modal-content">
+
+            <div class="modal-header">
+
+              <h5 class="modal-title" id="free-periods__header--title">Free Period Settings</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">  
+
+
+              <div>
+                <label for="maxNumFreePeriods">Maximum in One Year</label>
+                <input type="text" name="maxNumFreePeriods" id="free-periods__input--max-num-free-periods">
+                <br>
+                <br>
+              </div>
+
+              <div>
+                <label for="wantedNumFreePeriods">Wanted Amount</label>
+                <input type="text" name="wantedNumFreePeriods" id="free-periods__input--wanted-num-free-periods">
+                <br>
+                <br>
+              </div>
+
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <h5> Skills and Interest</h5>
+
+    <ul id = "skills-interest"> 
+
+      
+    </ul>
+
+    <h5>What kind of challenge are you looking for overall?</h5>
+    <div>
+      <span id="form__span--difficulty"></span>
+      <input type="range" name="difficulty" min="1" max="10" value="5" id="form__input--difficulty"
+        onChange="rangeSlider(this.value, 'form__span--difficulty')"
+        onmousemove="rangeSlider(this.value, 'form__span--difficulty')">
+      <br>
+      <br>
+    </div>
+
+
+
+    <!-- Submit Info Button -->
+    <input type="submit" name="form__input--submit" id="form__input--submit" value="submit">
+
+
+
+  </form>
+
+  <script th:src="@{/js/home.js}"></script>
+
+
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
