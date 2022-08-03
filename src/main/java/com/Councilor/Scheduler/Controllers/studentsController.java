@@ -47,10 +47,12 @@ public class studentsController {
     }
 
     @PostMapping({"/","/home"})
-    public String homePost(@ModelAttribute Students students){
+    public String homePost(@ModelAttribute Students students, Model model){
         System.out.println("*************** Post Received *************");
         System.out.println(students);
-        this.scheduleService.getSchedule();
-        return "home";
+        int[][] schedule = this.scheduleService.getSchedule();
+        model.addAttribute("schedule",schedule);
+        return "result";
     }
+
 }

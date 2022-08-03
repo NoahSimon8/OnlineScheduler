@@ -10,8 +10,16 @@ public class ScheduleService {
 
     HashMap<String,int[]> rankings = new HashMap<>();
 
+    int[][] sample = new int[3][5];
+
     public ScheduleService(){
         initializeRankings();
+        for (int i = 0; i<3;i++) {
+            for (int j = 0; j < 5; j++) {
+                sample[i][j]=j+5*i;
+            }
+        }
+
 
     }
 
@@ -30,8 +38,9 @@ public class ScheduleService {
 
     }
 
-    public void getSchedule(){
+    public int[][] getSchedule(){
         System.out.println("SCHEDULE");
+        return sample;
     }
 
 
