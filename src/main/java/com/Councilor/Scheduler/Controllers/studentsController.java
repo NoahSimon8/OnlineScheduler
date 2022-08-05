@@ -13,6 +13,7 @@ public class studentsController {
 
     Hashtable<String, String[]> subjects = new Hashtable<>();
     ScheduleService scheduleService;
+    int[][] schedule;
 
     @Autowired
     studentsController(ScheduleService scheduleService){
@@ -44,24 +45,27 @@ public class studentsController {
         return "home";
     }
 
+//    For some reason, / and /home fixed the error
+    @PostMapping(path="/result")
+    public String surveyPost(@ModelAttribute Students students, Model model){
+        System.out.println("*************** Post Received *************");
+        System.out.println(students);
+        schedule = this.scheduleService.getSchedule();
+        model.addAttribute("schedule",schedule);
+        return "result";
+    }
 
 
     @GetMapping({"/survey"})
     public String surveyGet(Model model){
-        System.out.println("*************** Request Sent *************");
-        model.addAttribute("my_var", "Hello Sir");
 
         model.addAttribute("subjects", subjects);
         return "survey";
     }
 
-    @PostMapping({"/survey"})
-    public String surveyPost(@ModelAttribute Students students, Model model){
-        System.out.println("*************** Post Received *************");
-        System.out.println(students);
-        int[][] schedule = this.scheduleService.getSchedule();
+    @GetMapping({"/result"})
+    public String resultGet(Model model){
         model.addAttribute("schedule",schedule);
         return "result";
     }
-
 }
