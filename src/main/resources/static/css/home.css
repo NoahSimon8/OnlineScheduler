@@ -20,3 +20,15 @@ h1 {
 .pl {
     margin-left: 20px;
 }
+
+.bigBtn {
+    padding: 30px 150px ;
+    font-size: 40px;
+    font-weight: 600;
+    
+}
+
+.vm {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
