@@ -94,10 +94,18 @@ function addSubjects(element, IDtype) {
 }
 
 //Skills and Interest
-const skillsInterestUl = document.querySelector("#skills-interest");
+let skillsInterestUl = document.querySelector("#skills-interest");
 const skillsOrInterest = ["Skills", "Interest"];
+let count = 0;
 for (let key of keys) {
+    if (count>=5){
+        skillsInterestUl=document.getElementById("skills-interest2")
+    }
+    console.log(skillsInterestUl)
 
+    let header = document.createElement("h5")
+    header.innerText= key
+    skillsInterestUl.appendChild(header)
 
     for (let option of skillsOrInterest) {
         let li = document.createElement("li");
@@ -107,16 +115,21 @@ for (let key of keys) {
 
             let radio = document.createElement("input");
             radio.type = "radio";
-            subj = key.replace(" ", "_");
+            subj = key.replace(" ", "_");   
 
             radio.name = "radio" + subj + option;
             radio.value = i;
             li.appendChild(radio);
         }
+        label.classList.add("pl")
+        li.classList.add("pl")
+
         skillsInterestUl.appendChild(label);
 
         skillsInterestUl.appendChild(li);
     }
+
+    count++;
 
 }
 
