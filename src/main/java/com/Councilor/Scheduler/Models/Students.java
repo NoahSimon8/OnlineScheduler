@@ -8,6 +8,8 @@ public class Students {
     private String last_name;
     private String grade;
     private String term_length;
+    private String terms_per_year_credit;
+    private String terms_per_AP;
     private String num_periods;
     private String difficulty;
 
@@ -38,7 +40,7 @@ public class Students {
     private String radioElectiveInterest;
 
 
-
+    
 
 
 }
