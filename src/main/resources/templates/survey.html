@@ -20,7 +20,15 @@
         <!-- 1) Enter your first name -->
 
         <section id="General">
-          <h2>General</h2>
+          <div class="help-tip-parent">
+            <h2> General</h2>
+            <div class="help-tip">
+              <p>Basic information about you</p>
+            </div>
+          </div>
+
+
+
           <div>
             <label for="first_name">First Name</label>
             <input type="text" name="first_name" id="form__input--first-name">
@@ -53,8 +61,13 @@
 
           <!-- 2) Enter your term length-->
           <div>
-            <label for="term_length">Term Length</label>
-            <span id="form__span--term-length"></span>
+            <div class="help-tip-parent">
+              <label for="term_length">Term Length</label>
+              <div class="help-tip">
+                <p>Semseter, Trimester, Quarters; How often do you change classes?</p>
+              </div>
+            </div>
+            <span class = "ml" id="form__span--term-length"></span>
             <input type="range" name="term_length" min="2" max="4" value="2" id="form__input--term-length"
               onchange="rangeSlider(this.value, 'form__span--term-length')"
               onmousemove="rangeSlider(this.value, 'form__span--term-length')">
