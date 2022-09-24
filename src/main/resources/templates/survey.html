@@ -20,12 +20,7 @@
         <!-- 1) Enter your first name -->
 
         <section id="General">
-          <div class="help-tip-parent">
-            <h2> General</h2>
-            <div class="help-tip">
-              <p>Basic information about you</p>
-            </div>
-          </div>
+          <h2> General</h2>
 
 
 
@@ -47,7 +42,7 @@
 
           <!-- 2) Enter your grade -->
           <div>
-            <label for="grade">Grade</label>
+            <label for="grade (9-12)">Grade</label>
             <input type="text" name="grade" id="form__input--grade">
             <br>
             <br>
@@ -56,7 +51,7 @@
 
         </section>
 
-        <section id = "Class-Information">
+        <section id="Class-Information">
           <h2>Class Information</h2>
 
           <!-- 2) Enter your term length-->
@@ -64,10 +59,11 @@
             <div class="help-tip-parent">
               <label for="term_length">Term Length</label>
               <div class="help-tip">
-                <p>Semseter, Trimester, Quarters; How often do you change classes?</p>
+                <p>Semseter, Trimester, Quarters; How often do you change classes each year?</p>
               </div>
             </div>
-            <span class = "ml" id="form__span--term-length"></span>
+
+            <span class="ml" id="form__span--term-length"></span>
             <input type="range" name="term_length" min="2" max="4" value="2" id="form__input--term-length"
               onchange="rangeSlider(this.value, 'form__span--term-length')"
               onmousemove="rangeSlider(this.value, 'form__span--term-length')">
@@ -78,7 +74,7 @@
           <!-- 2) Enter the # of periods in a day-->
 
           <div>
-            <label for="num_periods"># of Periods in a Day</label>
+            <label for="num_periods"># of Periods in a Full Day</label>
             <span id="form__span--num-periods"></span>
             <input type="range" name="num_periods" min="1" max="10" value="4" id="form__input--num-periods"
               onchange="rangeSlider(this.value, 'form__span--num-periods')"
@@ -91,11 +87,18 @@
           <!-- Required Classes -->
           <div class="required-classes">
 
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-              data-bs-target="#required-classes__modal">
-              Choose required classes
-            </button>
+            <div class="help-tip-parent">
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#required-classes__modal">
+                Choose required classes
+              </button>
+              <div class="help-tip">
+                <p>Select the subjects, and for however many terms, you are required to take this year</p>
+              </div>
+            </div>
+
+
 
             <!-- Modal for required classes -->
             <div class="modal fade" id="required-classes__modal" tabindex="-1"
@@ -107,7 +110,18 @@
 
                   <div class="modal-header">
 
-                    <h5 class="modal-title" id="required-classes__header--title">Required Classes</h5>
+
+                    <div class="help-tip-parent">
+                      <!-- Button trigger modal -->
+                      <h5 class="modal-title" id="required-classes__header--title">Required Classes</h5>
+
+                      <div class="help-tip">
+                        <p>Select the subjects, and for however many terms, you are required to take this year</p>
+                      </div>
+                    </div>
+
+
+
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
 
@@ -120,7 +134,7 @@
 
 
 
-                      <label for="requiredClassesLength">Length</label>
+                      <label for="requiredClassesLength"># of terms</label>
                       <input type="text" name="requiredClassesLength" id="required-classes__input--length">
                     </div>
 
@@ -142,17 +156,33 @@
           <!-- model for wanted classes -->
 
           <div class="wanted-classes">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-              data-bs-target="#wanted-classes__modal">
-              Choose wanted classes
-            </button>
+
+            <div class="help-tip-parent">
+              <!-- Button trigger modal -->
+
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#wanted-classes__modal">
+                Choose wanted classes
+              </button>
+              <div class="help-tip">
+                <p>Select the subjects, difficulty, and for however many terms, you are REALLY want this year</p>
+              </div>
+            </div>
+
 
             <div class="modal fade" id="wanted-classes__modal" tabindex="-1"
               aria-labelledby="wanted-classes__header--title" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="wanted-classes__header--title">Wanted classes</h5>
+                    <div class="help-tip-parent">
+                      <!-- Button trigger modal -->
+                      <h5 class="modal-title" id="wanted-classes__header--title">Wanted classes</h5>
+                      <div class="help-tip">
+                        <p>Select the subjects, difficulty, and for however many terms, you are REALLY want this year
+                        </p>
+                      </div>
+                    </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body" id="wanted-classes__modal-body">
@@ -247,8 +277,18 @@
             </div>
           </div>
 
+          <div class="helpBig-tip-parent">
+            <!-- Button trigger modal -->
+            <h5 class="mt-3">What kind of challenge are you looking for overall?</h5>
+            <div class="helpBig-tip">
+              <p>1: As little challenge as possible, but will not be rewarding <br>
+                5: A decent year. Nothing crazy but will get the job done <br>
+                10: As hard as possible. Will be very impressive. <br>
+                4-8 is recomended
+              </p>
+            </div>
+          </div>
 
-          <h5 class = "mt-3">What kind of challenge are you looking for overall?</h5>
           <div>
             <span id="form__span--difficulty"></span>
             <input type="range" name="difficulty" min="1" max="10" value="5" id="form__input--difficulty"
@@ -262,9 +302,17 @@
       </div>
 
       <div class="col-sm">
-        <h2> Skills and Interest</h2>
 
-        <ul id="skills-interest" class = "radio">
+        <div class="help-tip-parent">
+          <!-- Button trigger modal -->
+          <h2> Skills and Interest</h2>
+          <div class="help-tip">
+            <p>How easy and how enjoyable a subject is, 1-5 </p>
+          </div>
+        </div>
+
+
+        <ul id="skills-interest" class="radio">
 
 
         </ul>
@@ -272,7 +320,7 @@
 
       <div class="col-sm">
 
-        <ul id="skills-interest2" class = "radio mt-5">
+        <ul id="skills-interest2" class="radio mt-5">
 
 
         </ul>

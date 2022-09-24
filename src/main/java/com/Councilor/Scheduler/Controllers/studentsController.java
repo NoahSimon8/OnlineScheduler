@@ -1,6 +1,7 @@
 package com.Councilor.Scheduler.Controllers;
 
 import com.Councilor.Scheduler.Services.ScheduleService;
+import com.Councilor.Scheduler.Services.testStudent;
 import com.Councilor.Scheduler.Models.Students;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,9 +16,10 @@ public class studentsController {
     ScheduleService scheduleService;
     int[][] schedule;
 
+
     @Autowired
     studentsController(ScheduleService scheduleService){
-        this.scheduleService = scheduleService;
+        this.scheduleService = scheduleService; // why is it this.scheduleService?
         initializeSubjects();
     }
 
@@ -50,7 +52,13 @@ public class studentsController {
     public String surveyPost(@ModelAttribute Students students, Model model){
         System.out.println("*************** Post Received *************");
         System.out.println(students);
-        schedule = this.scheduleService.getSchedule();
+
+        // teststudent so i don't need to fill out the survey everyTime
+        testStudent student = new testStudent();
+        student.organize();
+        schedule = this.scheduleService.getSchedule(student);
+
+
         model.addAttribute("schedule",schedule);
         return "result";
     }
