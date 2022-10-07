@@ -6,5 +6,5 @@ import java.util.HashMap;
 
 public abstract class ScheduleBase {
     public abstract void set_next_chain(ScheduleBase next);
-    public abstract void calculate(testStudent student, HashMap<String,Integer> ranks, String[] schedule);
+    public abstract void calculate(testStudent student, HashMap<String,Integer[]> ranks, String[] schedule);
 }
