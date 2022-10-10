@@ -1,15 +1,18 @@
 
 
 // To Do:
+
+// Make terms before difficulty, and have it add more subjects if terms are full.
+
 // Fill in schedule with lots of gaps, code for filling in full terms, code for difficulty, code for last bits of polish
 // A section to fill out subjects not available: Ie, history as a freshman
-// Make science a single category
 package com.Councilor.Scheduler.Services;
 
 
 import com.Councilor.Scheduler.Models.Students;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @Service
@@ -261,7 +264,7 @@ class difficultyEdits extends ScheduleBase{
 
     ScheduleBase nextCalc;
     private HashMap<String, Integer> difficulties = new HashMap<>();
-
+    private HashMap<String, ArrayList<String>> classes = new HashMap<>();
 
     @Override
     public void set_next_chain(ScheduleBase next) {
@@ -271,15 +274,89 @@ class difficultyEdits extends ScheduleBase{
     @Override
     public void calculate(testStudent student,HashMap<String,Integer[]> ranks, String[] schedule ){
 
+        classes.put("hard", new ArrayList<>());
+        classes.put("easy", new ArrayList<>());
+
+
         for (int index = 0; index < schedule.length; index++) {
             if (schedule[index]!=null){
+
+                //put in the dictionary each subject as key and 10-skill as value
                 difficulties.put(schedule[index],5-student.getSkills().get(schedule[index]));
             }
-
         }
 
-        nextCalc.calculate(student, ranks, schedule);
+        difficultySet(difficulties,student.getDifficulty()/2, student, ranks);
 
+        System.out.println("DIFFICULTIES: HARD");
+        for (String c : classes.get("hard")){
+            System.out.println(c);
+        }
+        System.out.println("DIFFICULTIES: EASY");
+        for (String c : classes.get("easy")){
+            System.out.println(c);
+        }
+
+        System.out.println("DIFFICULTIES OVER");
+
+        nextCalc.calculate(student, ranks, schedule);
+    }
+
+    private void difficultySet(HashMap<String, Integer> difficulties,double desiredAverage,testStudent student,HashMap<String,Integer[]> ranks){
+        // find the average difficulty
+        double average = 0;
+        int countSubject = 0;
+        for ( String key : difficulties.keySet()){
+            countSubject++;
+            average+= difficulties.get(key);
+        }
+        average /= countSubject;
+
+        // if too easy  by more than .5, make a class harder
+        if (desiredAverage > average+0.5){
+
+            int max=0;
+            String maxKey = "Math";
+            for (String key : difficulties.keySet()){
+                // If larger than the current max, defined by the Rank + skill
+                if (max< (ranks.get(key)[0]) + student.getSkills().get(maxKey)){
+                    // but difficulty not yet edited
+                    if (difficulties.get(maxKey)!=5-student.getSkills().get(maxKey)) {
+                        maxKey = key;
+                        max = ranks.get(key)[0];
+                    }
+                }
+            }
+            //sets difficulty to 5, and then puts the subject into the hard category
+            difficulties.put(maxKey, 5);
+            classes.get("hard").add(maxKey);
+            // repeats the function
+            difficultySet(difficulties,desiredAverage, student,ranks);
+        }
+// if too hard by more than .5, make a class easier
+        if (desiredAverage < average-0.5){
+
+            int min=0;
+            String minKey = "Math";
+            for (String key : difficulties.keySet()){
+                // If smaller than the current min, defined by the Rank + skill
+                if (min> (ranks.get(key)[0]) + student.getSkills().get(minKey)){
+                    // but difficulty not yet edited
+                    if (difficulties.get(minKey)!=5-student.getSkills().get(minKey)) {
+                        minKey = key;
+                        min = ranks.get(key)[0];
+                    }
+                }
+            }
+            //sets difficulty to 0, and then puts the subject into the easy category
+            difficulties.put(minKey, 0);
+            classes.get("easy").add(minKey);
+            // repeats the function
+            difficultySet(difficulties,desiredAverage, student,ranks);
+        }
+
+
+        return ;
     }
 }
 
