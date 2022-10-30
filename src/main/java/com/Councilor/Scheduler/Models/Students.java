@@ -77,7 +77,21 @@ public class Students {
         if (wantedDropdownSubjects  == null){wantedDropdownSubjects = new String[] {};}
         if (wantedDropdownClassesStr  == null){wantedDropdownClassesStr = new String[] {};}
         if (requiredClassesLengthStr  == null){requiredClassesLengthStr = new String[] {};}
+        int count = 0;
+        for (String num : requiredClassesLengthStr){
+             if (num==""){
+                 requiredClassesLengthStr[count]="0";
+            }
+             count++;
+        }
         if (wantedClassesLengthStr  == null){wantedClassesLengthStr = new String[] {};}
+        count = 0;
+        for (String num : wantedClassesLengthStr){
+            if (num==""){
+                wantedClassesLengthStr[count]="0";
+            }
+            count++;
+        }
 
 
         if (radioArtSkills  == null){radioArtSkills = "3";}

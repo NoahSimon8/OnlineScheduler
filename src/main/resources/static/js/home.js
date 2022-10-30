@@ -2,7 +2,7 @@
 
 
 const subjects = {
-    "Select a Subject": [],
+    "Select a Subject": ["1","2","3","4","5"],
     "Art": ["1","2","3","4","5"],
     "Math": ["1","2","3","4","5"],
     "English": ["1","2","3","4","5"],
@@ -23,7 +23,7 @@ let requiredSection = `
     </select>
 
     <label for="requiredClassesLength">Length</label>
-    <input type="text" name="requiredClassesLength" id="required-classes__input--length">
+    <input type="text" name="requiredClassesLengthStr" id="required-classes__input--length">
 </div>
 `;
 
@@ -47,7 +47,7 @@ let wantedSection = `
         </ul>
     </div>
     <label for="wantedClassesLength">Length</label>
-    <input type="text" name="wantedClassesLength" id="wanted-classes__input--length">
+    <input type="text" name="wantedClassesLengthStr" id="wanted-classes__input--length">
 </div>`;
 
 const keys = Object.keys(subjects);

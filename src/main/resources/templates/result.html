@@ -11,6 +11,10 @@
 
         <!--    Loop through schedule-->
         <table class="table table-bordered mt-5">
+
+<!--  TWO DEMINTIONAL ARRAY FANCY TABLE -->
+
+            <!-- 
             <thead class="table-dark">
                 <tr>
                     <th scope="col">Period 1</th>
@@ -26,6 +30,32 @@
                     <text th:text="${course}"></text>
                 </td>
             </tr>
+         -->
+
+<!-- WORDS JUST GOING ACROSS -->
+<!--          
+        <tr th:each="course: ${schedule}">
+            <text th:text="${course}"></text>
+        </tr>
+ -->
+ <!-- WORDS ACCROSS IN MINI TABLE ENTRIES -->
+<!--  
+            <tr>
+                <td th:each="course: ${schedule}">
+                    <text th:text="${course}"></text>
+                </td>
+            </tr> -->
+
+<!-- Big Header For Each Course -->
+        <h2 th:each = "course: ${schedule}">
+            <text th:text = "${course}"></text>
+
+        </h2>
+
+        <p class="info">This is our recomendation for what classes to select for your upcoming year. Any "Free" periods were determined to be completely up to you! Pick your favorite class or, if your school allows, no period at all!</p>
+
+
+
         </table>
         <!--    back button to home.html-->
         <a class="btn btn-danger mt-3 btn-lg" href="/home">Back</a>

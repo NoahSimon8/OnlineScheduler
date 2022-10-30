@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 @Controller
@@ -14,7 +16,7 @@ public class studentsController {
 
     Hashtable<String, String[]> subjects = new Hashtable<>();
     ScheduleService scheduleService;
-    int[][] schedule;
+    ArrayList<String> schedule;
 
 
     @Autowired
@@ -25,7 +27,7 @@ public class studentsController {
 
     private void initializeSubjects(){
 //        subjects.put("Select a subject", new String[])
-        subjects.put("Select a subject", new String[] {});
+        subjects.put("Select a subject", new String[] {"1"});
         subjects.put("Art", new String[] {"1","2","3","4","5"});
         subjects.put("Math", new String[] {"1","2","3","4","5"});
         subjects.put("History", new String[] {"1","2","3","4","5"});
