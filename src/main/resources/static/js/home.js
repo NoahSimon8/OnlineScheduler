@@ -22,7 +22,7 @@ let requiredSection = `
 
     </select>
 
-    <label for="requiredClassesLength">Length</label>
+    <label for="requiredClassesLength"># of terms</label>
     <input type="text" name="requiredClassesLengthStr" id="required-classes__input--length">
 </div>
 `;
@@ -39,6 +39,8 @@ let wantedSection = `
     </div>
     <!-- dropdown class -->
     <div class="dropdown">
+        <label for="wantedDropdownClassesStr"> Difficulty</label>
+
         <select id="dropClasses" name="wantedDropdownClasses">
         
         </select>
@@ -46,7 +48,7 @@ let wantedSection = `
 
         </ul>
     </div>
-    <label for="wantedClassesLength">Length</label>
+    <label for="wantedClassesLength"># of terms</label>
     <input type="text" name="wantedClassesLengthStr" id="wanted-classes__input--length">
 </div>`;
 
@@ -67,7 +69,6 @@ let numRequiredClasses = 1;
 const wantedSubjects = document.getElementById("wanted-classes__select--subjects");
 const wantedClasses = document.getElementById("wanted-classes__select--classes");
 wantedSubjects.addEventListener("change", function () {
-    console.log("CREATELIST");
     createCourseList(wantedClasses,this.value);
 });
 addSubjects(wantedSubjects, "wanted");
@@ -81,7 +82,6 @@ function addSubjects(element, IDtype) {
 
         option.id = IDtype + "-classes__option--" + key;
 
-        console.log("PRELIST");
 
         // 
         option.value = key;

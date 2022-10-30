@@ -26,7 +26,6 @@ public class studentsController {
     }
 
     private void initializeSubjects(){
-//        subjects.put("Select a subject", new String[])
         subjects.put("Select a subject", new String[] {"1"});
         subjects.put("Art", new String[] {"1","2","3","4","5"});
         subjects.put("Math", new String[] {"1","2","3","4","5"});

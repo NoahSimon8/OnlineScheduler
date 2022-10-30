@@ -235,7 +235,7 @@ class scheduleSet extends ScheduleBase
     public ArrayList<String> calculate(Students student,HashMap<String,Integer[]> ranks, String[] schedule){
         // kinda random for now, but basically for DN, it would select 9 classes for you before sending it to term edits
 
-        int classMax = student.getNum_periods() * student.getTerm_length() - (student.getTerm_length()*2);
+        int classMax = student.getNum_periods() * student.getTerm_length() - (int)(student.getTerm_length()*1.5);
         int classCount = 0;
         for (int index = 0; index < schedule.length; index++) {
             if (schedule[index]!=null){
