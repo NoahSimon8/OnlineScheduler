@@ -43,7 +43,7 @@
           <!-- 2) Enter your grade -->
           <div>
             <label for="grade (9-12)">Grade</label>
-            <input type="text" name="grade" id="form__input--grade">
+            <input type="text" name="gradeStr" id="form__input--grade">
             <br>
             <br>
             <hr>
@@ -57,14 +57,14 @@
           <!-- 2) Enter your term length-->
           <div>
             <div class="help-tip-parent">
-              <label for="term_length">Term Length</label>
+              <label for="term_lengthStr">Term Length</label>
               <div class="help-tip">
                 <p>Semseter, Trimester, Quarters; How often do you change classes each year?</p>
               </div>
             </div>
 
             <span class="ml" id="form__span--term-length"></span>
-            <input type="range" name="term_length" min="2" max="4" value="2" id="form__input--term-length"
+            <input type="range" name="term_lengthStr" min="2" max="4" value="2" id="form__input--term-length"
               onchange="rangeSlider(this.value, 'form__span--term-length')"
               onmousemove="rangeSlider(this.value, 'form__span--term-length')">
             <br>
@@ -74,14 +74,54 @@
           <!-- 2) Enter the # of periods in a day-->
 
           <div>
-            <label for="num_periods"># of Periods in a Full Day</label>
+            <label for="num_periodsStr"># of Periods in a Full Day</label>
             <span id="form__span--num-periods"></span>
-            <input type="range" name="num_periods" min="1" max="10" value="4" id="form__input--num-periods"
+            <input type="range" name="num_periodsStr" min="1" max="10" value="4" id="form__input--num-periods"
               onchange="rangeSlider(this.value, 'form__span--num-periods')"
               onmousemove="rangeSlider(this.value, 'form__span--num-periods')">
             <br>
             <br>
           </div>
+<!--  number terms in a year credit -->
+          <div>
+
+
+
+            <div class="help-tip-parent">
+              <label for="terms_per_year_creditStr">Terms Per Year Credit</label>
+              <div class="help-tip">
+                <p>How many terms, as entered prior, to get one "year" of credit towards graduation? This may be different from the total amount of terms you have in a school year</p>
+              </div>
+            </div>            
+            <span id="form__span--terms-per-year-credit" class="ml"></span>
+            <input type="range" name="terms_per_year_creditStr" min="1" max="4" value="1" id="form__input--terms-per-year-credit"
+              onchange="rangeSlider(this.value, 'form__span--terms-per-year-credit')"
+              onmousemove="rangeSlider(this.value, 'form__span--terms-per-year-credit')">
+            <br>
+            <br>
+          </div>
+          <!--  number terms in an AP class -->
+          <div>
+
+
+
+            <div class="help-tip-parent">
+              <label for="terms_per_APStr">Terms Per AP Class</label>
+              <div class="help-tip">
+                <p>How many terms, as entered prior, are involved in an AP course? This may be diferent from the amount in 1 year of credit</p>
+              </div>
+            </div>            
+            <span id="form__span--terms_per_AP" class="ml"></span>
+            <input type="range" name="terms_per_APStr" min="1" max="4" value="1" id="form__input--terms_per_AP"
+              onchange="rangeSlider(this.value, 'form__span--terms_per_AP')"
+              onmousemove="rangeSlider(this.value, 'form__span--terms_per_AP')">
+            <br>
+            <br>
+          </div>
+
+
+
+
 
 
           <!-- Required Classes -->
@@ -134,8 +174,8 @@
 
 
 
-                      <label for="requiredClassesLength"># of terms</label>
-                      <input type="text" name="requiredClassesLength" id="required-classes__input--length">
+                      <label for="requiredClassesLengthStr"># of terms</label>
+                      <input type="text" name="requiredClassesLengthStr" id="required-classes__input--length">
                     </div>
 
                   </div>
@@ -204,7 +244,7 @@
                       </div>
                       <!-- dropdown class -->
                       <div class="dropdown">
-                        <select id="wanted-classes__select--classes" name="wantedDropdownClasses">
+                        <select id="wanted-classes__select--classes" name="wantedDropdownClassesStr">
 
                         </select>
 
@@ -212,8 +252,8 @@
                         </ul>
                       </div>
 
-                      <label for="wantedClassesLength">Length</label>
-                      <input type="text" name="wantedClassesLength" id="wanted-classes__input--length">
+                      <label for="wantedClassesLengthStr">Length</label>
+                      <input type="text" name="wantedClassesLengthStr" id="wanted-classes__input--length">
                     </div>
 
                   </div>
@@ -227,55 +267,7 @@
             </div>
           </div>
 
-          <!-- Free Periods -->
-          <div class="free-periods">
 
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#free-periods__modal">
-              Free Period Settings
-            </button>
-
-            <!-- Modal for free periods -->
-            <div class="modal fade" id="free-periods__modal" tabindex="-1" aria-labelledby="free-periods__header--title"
-              aria-hidden="true">
-
-              <div class="modal-dialog">
-
-                <div class="modal-content">
-
-                  <div class="modal-header">
-
-                    <h5 class="modal-title" id="free-periods__header--title">Free Period Settings</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-
-                  <div class="modal-body">
-
-
-                    <div>
-                      <label for="maxNumFreePeriods">Maximum in One Year</label>
-                      <input type="text" name="maxNumFreePeriods" id="free-periods__input--max-num-free-periods">
-                      <br>
-                      <br>
-                    </div>
-
-                    <div>
-                      <label for="wantedNumFreePeriods">Wanted Amount</label>
-                      <input type="text" name="wantedNumFreePeriods" id="free-periods__input--wanted-num-free-periods">
-                      <br>
-                      <br>
-                    </div>
-
-
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
           <div class="helpBig-tip-parent">
             <!-- Button trigger modal -->
@@ -291,7 +283,7 @@
 
           <div>
             <span id="form__span--difficulty"></span>
-            <input type="range" name="difficulty" min="1" max="10" value="5" id="form__input--difficulty"
+            <input type="range" name="difficultyStr" min="1" max="10" value="5" id="form__input--difficulty"
               onChange="rangeSlider(this.value, 'form__span--difficulty')"
               onmousemove="rangeSlider(this.value, 'form__span--difficulty')">
             <br>

@@ -17,7 +17,7 @@ public class tester {
 
         testStudent student = new testStudent();
         student.organize();
-        schedule = scheduleService.getSchedule(student);
+//        schedule = scheduleService.getSchedule(student);
 
 
 

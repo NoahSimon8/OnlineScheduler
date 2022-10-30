@@ -53,26 +53,27 @@ public class ScheduleService {
 
     private void initializeRankings(){
         int baseRank = 10;
-//        first int is how many terms are required, second int is the priority rank
-        rankings.put("Math", new Integer[] {baseRank,0});
-        rankings.put("English",  new Integer[] {baseRank,0});
-        rankings.put("History",  new Integer[] {baseRank,0});
-        rankings.put("Foreign_Language",  new Integer[] {baseRank,0});
-        rankings.put("PE",  new Integer[] {baseRank,0});
-        rankings.put("Life_Science",  new Integer[] {baseRank,0});
-        rankings.put("Physical_Science",  new Integer[] {baseRank,0});
-        rankings.put("Elective",  new Integer[] {baseRank,0});
-        rankings.put("Free",  new Integer[] {baseRank,0});
-        rankings.put("Art",  new Integer[] {baseRank,0});
+//        3rd int is difficulty (0 for easy, 1 for normal, 2 for hard), 2nd int is how many terms are required, 1st  int is the priority rank
+        rankings.put("Math", new Integer[] {baseRank,0,1});
+        rankings.put("English",  new Integer[] {baseRank,0,1});
+        rankings.put("History",  new Integer[] {baseRank,0,1});
+        rankings.put("Foreign_Language",  new Integer[] {baseRank,0,1});
+        rankings.put("PE",  new Integer[] {baseRank,0,1});
+        rankings.put("Life_Science",  new Integer[] {baseRank,0,1});
+        rankings.put("Physical_Science",  new Integer[] {baseRank,0,1});
+        rankings.put("Elective",  new Integer[] {baseRank,0,1});
+        rankings.put("Free",  new Integer[] {baseRank,0,1});
+        rankings.put("Art",  new Integer[] {baseRank,0,1});
     }
 
-    public int[][] getSchedule(testStudent student){
+    public int[][] getSchedule(Students student){
         System.out.println("SCHEDULE");
 
 
         start.calculate(student,rankings,schedule);
 
         return sample;
+//        return schedule
     }
 
 }
@@ -87,7 +88,7 @@ class scheduleStart extends ScheduleBase{
         nextCalc = next;
     }
     @Override
-    public void calculate(testStudent student,HashMap<String,Integer[]> ranks, String[] schedule ){
+    public void calculate(Students student,HashMap<String,Integer[]> ranks, String[] schedule ){
 
         //        Creates a new schedule, the size determined by the periods in a day and terms in a year
         schedule = new String[student.getTerm_length() * student.getNum_periods()];
@@ -131,26 +132,26 @@ class rankBased extends ScheduleBase{
     }
 
     @Override
-    public void calculate(testStudent student,HashMap<String,Integer[]> ranks, String[] schedule ){
+    public void calculate(Students student,HashMap<String,Integer[]> ranks, String[] schedule ){
 
 
         // + rank for each amount of interest
         for (String subject : student.getInterest().keySet()){
             // replace subject rank with the rank + the interest in the subject
-            ranks.put(subject, new Integer[] {ranks.get(subject)[0] + (student.getInterest().get(subject)),0});
+            ranks.put(subject, new Integer[] {ranks.get(subject)[0] + (student.getInterest().get(subject)),0,1});
         }
 
         // + some rank for how they effect graduation credits
         for (String subject :calHighGradRequirements.keySet()){
             // replace subject rank with the rank + the number of years required by California
-            ranks.put(subject, new Integer[] {ranks.get(subject)[0] + calHighGradRequirements.get(subject),0});
+            ranks.put(subject, new Integer[] {ranks.get(subject)[0] + calHighGradRequirements.get(subject),0,1});
         }
 
         // + some rank for how they effect College Applications
         for (String subject : collegeRequirements.keySet()){
 
             // replace subject rank with the rank + the number of years required for most colleges
-            ranks.put(subject, new Integer[] {ranks.get(subject)[0] + collegeRequirements.get(subject),0});
+            ranks.put(subject, new Integer[] {ranks.get(subject)[0] + collegeRequirements.get(subject),0,1});
 
         }
 
@@ -159,7 +160,11 @@ class rankBased extends ScheduleBase{
         String[] wanted = student.getWantedDropdownSubjects(); // wanted classes
         int count = 0;
         for (String subject : wanted){
-            ranks.put(subject, new Integer[] {ranks.get(subject)[0] + student.getWantedClassesLength()[count],0});
+            if (subject.equals("Select a Subject")){
+                continue;
+            }
+            System.out.println(subject);
+            ranks.put(subject, new Integer[] {ranks.get(subject)[0] + student.getWantedClassesLength()[count],0,1});
 
             count++;
         }
@@ -181,19 +186,23 @@ class requiredBased extends ScheduleBase
     }
 
     @Override
-    public void calculate(testStudent student,HashMap<String,Integer[]> ranks, String[] schedule){
+    public void calculate(Students student,HashMap<String,Integer[]> ranks, String[] schedule){
 
         // for each required subject
         for (int subjectCount = 0; subjectCount < student.getRequiredDropdownSubjects().length; subjectCount++) {
-
+            if (student.getRequiredClassesLength().length==0){
+                continue;
+            }
             // for each class needed in that subject
             for (int classCount = 0; classCount < student.getRequiredClassesLength()[subjectCount]; classCount++) {
                 String subject = student.getRequiredDropdownSubjects()[subjectCount];
+
+
                 // fill the next spot in the schedule with that class
                 for (int index = 0; index < schedule.length; index++) {
                     if (schedule[index] == null) {
                         schedule[index] = subject;
-                        ranks.put(subject, new Integer[] {ranks.get(subject)[0]-3, ranks.get(subject)[1]+1});
+                        ranks.put(subject, new Integer[] {ranks.get(subject)[0]-3, ranks.get(subject)[1]+1,1});
 
                         break;
                     }
@@ -209,7 +218,7 @@ class requiredBased extends ScheduleBase
     }
 }
 
-
+// puts in actual classes based on ranks
 class scheduleSet extends ScheduleBase
 {
     ScheduleBase nextCalc;
@@ -220,7 +229,7 @@ class scheduleSet extends ScheduleBase
     }
 
     @Override
-    public void calculate(testStudent student,HashMap<String,Integer[]> ranks, String[] schedule){
+    public void calculate(Students student,HashMap<String,Integer[]> ranks, String[] schedule){
         // kinda random for now, but basically for DN, it would select 9 classes for you before sending it to term edits
 
         int classMax = student.getNum_periods() * student.getTerm_length() - (student.getTerm_length()*2);
@@ -247,7 +256,7 @@ class scheduleSet extends ScheduleBase
                 if (schedule[index] == null) {
 
                     schedule[index] = maxKey;
-                    ranks.put(maxKey, new Integer[] {ranks.get(maxKey)[0]-3,ranks.get(maxKey)[1]+1});
+                    ranks.put(maxKey, new Integer[] {ranks.get(maxKey)[0]-3,ranks.get(maxKey)[1]+1,1});
                     break;
                 }
             }
@@ -272,7 +281,7 @@ class difficultyEdits extends ScheduleBase{
     }
 
     @Override
-    public void calculate(testStudent student,HashMap<String,Integer[]> ranks, String[] schedule ){
+    public void calculate(Students student,HashMap<String,Integer[]> ranks, String[] schedule ){
 
         classes.put("hard", new ArrayList<>());
         classes.put("easy", new ArrayList<>());
@@ -297,12 +306,20 @@ class difficultyEdits extends ScheduleBase{
             System.out.println(c);
         }
 
+
+        for (String c : classes.get("hard")){
+            ranks.put(c, new Integer[] {ranks.get(c)[0],ranks.get(c)[1],2 });
+        }
+        for (String c : classes.get("easy")){
+            ranks.put(c, new Integer[] {ranks.get(c)[0],ranks.get(c)[1],0 });
+        }
+
         System.out.println("DIFFICULTIES OVER");
 
         nextCalc.calculate(student, ranks, schedule);
     }
 
-    private void difficultySet(HashMap<String, Integer> difficulties,double desiredAverage,testStudent student,HashMap<String,Integer[]> ranks){
+    private void difficultySet(HashMap<String, Integer> difficulties,double desiredAverage,Students student,HashMap<String,Integer[]> ranks){
         // find the average difficulty
         double average = 0;
         int countSubject = 0;
@@ -360,6 +377,7 @@ class difficultyEdits extends ScheduleBase{
     }
 }
 
+
 class termEdits extends ScheduleBase{
 
     ScheduleBase nextCalc;
@@ -370,23 +388,74 @@ class termEdits extends ScheduleBase{
     }
 
     @Override
-    public void calculate(testStudent student,HashMap<String,Integer[]> ranks, String[] schedule ){
+    public void calculate(Students student,HashMap<String,Integer[]> ranks, String[] schedule ){
 
-        for (String rank:ranks.keySet()){
-            System.out.print(rank);
-            System.out.print(": ");
-            System.out.print(ranks.get(rank)[1]);
-            System.out.print("; ");
 
-            System.out.println(ranks.get(rank)[0]);
+        int yearCredit = student.getTerms_per_year_credit();
+        int apLength = student.getTerms_per_AP();;
+
+        System.out.println("TERM BASED");
+
+        // for each class
+        for (String key : schedule){
+
+            if (key == null){
+                break;
+            }
+            // depending on if it is hard vs normal or easy, give it normal or AP length
+            // This will first give all classes the normal length minimum
+            // if less classes than needed and the last thing is the schedule is still null, aka not full
+//            System.out.print(key + ": ");
+//            System.out.println(ranks.get(key)[1]);
+            while (ranks.get(key)[1]<yearCredit && schedule[student.getNum_periods()* student.getTerm_length()-1]==null){
+                System.out.print("ADDING REGULAR: ");
+                System.out.println(key);
+                // add the class
+                for (int index = 0; index < schedule.length; index++) {
+                    if (schedule[index] == null) {
+                        schedule[index] = key;
+                        ranks.put(key, new Integer[] {ranks.get(key)[0]-3,ranks.get(key)[1]+1,ranks.get(key)[2]});
+                        break;
+                    }
+                }
+
+            }
+
+            // if hard
+            if (ranks.get(key)[2]==2){
+
+                // add enough classes to fill the ap length
+                while (ranks.get(key)[1]<apLength && schedule[student.getNum_periods()* student.getTerm_length()-1]==null){
+                    // add the class
+                    for (int index = 0; index < schedule.length; index++) {
+                        if (schedule[index] == null) {
+                            schedule[index] = key;
+                            ranks.put(key, new Integer[] {ranks.get(key)[0]-3,ranks.get(key)[1]+1,ranks.get(key)[2]});
+                            break;
+                        }
+                    }
+                }
+            }
         }
+        // add enough Free periods to fill the schedule length
+        while (schedule[student.getNum_periods()* student.getTerm_length()-1]==null){
 
-
-
+            // add the class
+            for (int index = 0; index < schedule.length; index++) {
+                if (schedule[index] == null) {
+                    schedule[index] = "Free";
+                    ranks.put("Free", new Integer[] {ranks.get("Free")[0]-3,ranks.get("Free")[1]+1,ranks.get("Free")[2]});
+                    break;
+                }
+            }
+        }
         nextCalc.calculate(student, ranks, schedule);
-
     }
+
+
+
 }
+
 
 class scheduleComplete extends ScheduleBase{
 
@@ -398,8 +467,17 @@ class scheduleComplete extends ScheduleBase{
     }
 
     @Override
-    public void calculate(testStudent student,HashMap<String,Integer[]> ranks, String[] schedule ){
+    public void calculate(Students student,HashMap<String,Integer[]> ranks, String[] schedule ){
+        System.out.println("SCHEDULE");
         for (int index = 0; index < schedule.length; index++) {
+            int diff = ranks.get(schedule[index])[2];
+            if (diff ==2){
+                schedule[index]+= " - Hard";
+            }
+            if (diff ==0){
+                schedule[index]+= " - Easy";
+            }
+
             System.out.println(schedule[index]);
 
         }
@@ -409,11 +487,13 @@ class scheduleComplete extends ScheduleBase{
         for (String rank:ranks.keySet()){
             System.out.print(rank);
             System.out.print(": ");
+            System.out.print(ranks.get(rank)[0]);
+            System.out.print("; ");
             System.out.print(ranks.get(rank)[1]);
             System.out.print("; ");
-
-            System.out.println(ranks.get(rank)[0]);
+            System.out.println(ranks.get(rank)[2]);
         }
+
 
         System.out.println("SCHEDULE RETURNED");
     }

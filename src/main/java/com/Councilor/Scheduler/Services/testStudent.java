@@ -13,10 +13,10 @@ public class testStudent{
     private String first_name = "Noah";
     private String last_name = "Simon";
     private String gradeStr = "10";
-    private String term_lengthStr = "3";
+    private String term_lengthStr = "2";
     private String terms_per_year_creditStr= "2";
-    private String terms_per_APStr = "3";
-    private String num_periodsStr = "5";
+    private String terms_per_APStr = "2";
+    private String num_periodsStr = "6";
     private String difficultyStr= "8";
 
 
@@ -24,8 +24,8 @@ public class testStudent{
     private String[] requiredDropdownSubjects = {"PE", "English"};
     private String[] wantedDropdownSubjects = {"Math", "Physical_Science"};
     private String[] wantedDropdownClassesStr= {"5", "5"}; // a difficulty measurement
-    private String[] requiredClassesLengthStr = {"3", "2"}; // terms
-    private String[] wantedClassesLengthStr= {"3","3"}; // terms
+    private String[] requiredClassesLengthStr = {"2", "2"}; // terms
+    private String[] wantedClassesLengthStr= {"2","2"}; // terms
 
 
     private String radioArtSkills = "0";

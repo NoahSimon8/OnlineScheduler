@@ -24,17 +24,17 @@ public class studentsController {
     }
 
     private void initializeSubjects(){
-        subjects.put("Art", new String[] {"Ceramics", "Drawing and Painting", "Choir", "Band", "Orchestra", "Jazz Band"});
-        subjects.put("Math", new String[] {"Integrated 1", "Integrated 2", "Integrated 3", "Algebra 1", "Algebra 2", "Algebra 3", "Geometry", "Trigonometry", "Pre-Calculus", "AP Calculus AB", "AP Calculus BC", "AP Statistics"});
-        subjects.put("History", new String[] {"AP US", "AP European", "AP World", "US", "European", "World"});
-        subjects.put("Foreign Language", new String[] {"Spanish 1", "Spanish 2", "Spanish 3", "Spanish 4", "AP Spanish Language", "AP Spanish Literature", "French 1", "French 2", "French 3","French 4","AP French",
-                "German 1","German 2", "German 3", "German 4", "AP German", "Latin 1", "Latin 2", "Latin 3", "Latin 4", "AP Latin", "Japanese 1", "Japanese 2", "Japanese 3", "Japanese 4", "AP Japanese",
-                "Chinese 1", "Chinese 2", "Chinese 3", "Chinese 4", "AP Chinese" });
-        subjects.put("Life Science", new String[] {"Biology 1", "Biology 2", "Honors Biology", "AP Biology", "AP Environmental"});
-        subjects.put("Physical Science", new String[] {"Chemistry 1", "Chemistry 2", "Honors Chemistry", "AP Chemistry", "Physics 1", "Physics 2", "Honors Physics", "Physics 1: Algebra Based", "AP Physics 2: Algebra Based", "AP Physics C: Mechanics", "AP Physics C: Electricity and Magnetism", "AP Environmental"});
-        subjects.put("Health", new String[] {"Health"});
-        subjects.put("PE", new String[] {"PE"});
-        subjects.put("Elective", new String[] {"Elective"});
+//        subjects.put("Select a subject", new String[])
+        subjects.put("Select a subject", new String[] {});
+        subjects.put("Art", new String[] {"1","2","3","4","5"});
+        subjects.put("Math", new String[] {"1","2","3","4","5"});
+        subjects.put("History", new String[] {"1","2","3","4","5"});
+        subjects.put("Foreign_Language", new String[] {"1","2","3","4","5"});
+        subjects.put("Life_Science", new String[] {"1","2","3","4","5"});
+        subjects.put("Physical_Science", new String[] {"1","2","3","4","5"});
+        subjects.put("Health", new String[] {"1"});
+        subjects.put("PE", new String[] {"1"});
+        subjects.put("Elective", new String[] {"1","2","3","4","5"});
 
 
     }
@@ -49,13 +49,11 @@ public class studentsController {
 
 //    For some reason, / and /home fixed the error
     @PostMapping(path="/result")
-    public String surveyPost(@ModelAttribute Students students, Model model){
+    public String surveyPost(@ModelAttribute Students student, Model model){
         System.out.println("*************** Post Received *************");
-        System.out.println(students);
-
         // teststudent so i don't need to fill out the survey everyTime
-        testStudent student = new testStudent();
         student.organize();
+
         schedule = this.scheduleService.getSchedule(student);
 
 

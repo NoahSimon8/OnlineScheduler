@@ -2,16 +2,16 @@
 
 
 const subjects = {
-    "Art": ["Ceramics", "Drawing and painting"],
-    "Math": ["Integrated 1", "Integrated 2", "Integrated 3", "AP Calculus AB", "AP Calculus BC", "AP Statistics"],
-    "English": ["English 1", "English 2", "Honors English 1", "Honors English 2"],
-    "Foreign Language": ["Spanish 1", "Spanish 2", "Spanish 3", "Spanish 4", "AP Spanish Language", "AP Spanish Literature", "French 1", "French 2", "French 3", "French 4", "AP French", "German 1", "German 2", "German 3", "German 4", "AP German", "Latin 1", "Latin 2", "Latin 3", "Latin 4", "AP Latin", "Japanese 1", "Japanese 2", "Japanese 3", "Japanese 4", "AP Japanese", "Chinese 1", "Chinese 2", "Chinese 3", "Chinese 4", "AP Chinese"],
-    "History": ["AP US", "AP European", "AP World", "US", "European", "World"],
-    "Life Science": ["Biology 1", "Biology 2", "Honors Biology", "AP Biology", "AP Environmental"],
-    "Physical Science": ["Chemistry 1", "Chemistry 2", "Honors Chemistry", "AP Chemistry", "Physics 1", "Physics 2", "Honors Physics", "Physics 1: Algebra Based", "AP Physics 2: Algebra Based", "AP Physics C: Mechanics", "AP Physics C: Electricity and Magnetism", "AP Environmental"],
-    "Health": ["Health"],
-    "PE": ["PE"],
-    "Elective": ["Elective"]
+    "Select a Subject": [],
+    "Art": ["1","2","3","4","5"],
+    "Math": ["1","2","3","4","5"],
+    "English": ["1","2","3","4","5"],
+    "Foreign_Language": ["1","2","3","4","5"],
+    "History": ["1","2","3","4","5"],
+    "Life_Science": ["1","2","3","4","5"],
+    "Physical_Science": ["1","2","3","4","5"],
+    "PE": ["1"],
+    "Elective": ["1","2","3","4","5"]
 };
 
 let requiredSection = `
@@ -93,11 +93,14 @@ function addSubjects(element, IDtype) {
     }
 }
 
-//Skills and Interest
 let skillsInterestUl = document.querySelector("#skills-interest");
 const skillsOrInterest = ["Skills", "Interest"];
 let count = 0;
 for (let key of keys) {
+    if (key=="Select a Subject"){
+        continue;
+    }
+
     if (count>=5){
         skillsInterestUl=document.getElementById("skills-interest2")
     }
